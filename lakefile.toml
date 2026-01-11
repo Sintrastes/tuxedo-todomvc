@@ -8,3 +8,15 @@ name = "LtlFormalVerification"
 [[lean_exe]]
 name = "ltl_formal_verification"
 root = "Main"
+
+[[lean_exe]]
+name = "lean2wasm"
+root = "Lean2Wasm"
+
+[[lean_exe]]
+name = "web_main"
+root = "WebMain"
+
+[[lean_exe]]
+name = "lean2wasm_simple"
+root = "Lean2WasmSimple"
