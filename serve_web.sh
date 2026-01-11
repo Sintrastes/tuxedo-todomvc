@@ -10,20 +10,20 @@ echo "║   Starting Local Web Server                          ║"
 echo "╚═══════════════════════════════════════════════════════╝"
 echo ""
 
-# Check if web directory exists
-if [ ! -d "web" ]; then
-    echo "❌ ERROR: web directory not found"
+# Check if docs directory exists
+if [ ! -d "docs" ]; then
+    echo "❌ ERROR: docs directory not found"
     echo "Please run this script from the project root directory"
     exit 1
 fi
 
 # Check if WASM files exist
-if [ ! -f "web/main.wasm" ]; then
-    echo "⚠️  WARNING: main.wasm not found in web/"
+if [ ! -f "docs/main.wasm" ]; then
+    echo "⚠️  WARNING: main.wasm not found in docs/"
     echo ""
     echo "Copying WASM files from .lake/build/wasm/..."
     if [ -f ".lake/build/wasm/main.wasm" ]; then
-        cp .lake/build/wasm/main.js .lake/build/wasm/main.wasm web/
+        cp .lake/build/wasm/main.js .lake/build/wasm/main.wasm docs/
         echo "✓ WASM files copied"
     else
         echo "❌ ERROR: WASM files not built yet"
@@ -45,8 +45,8 @@ echo ""
 echo "─────────────────────────────────────────────────────"
 echo ""
 
-# Change to web directory
-cd web
+# Change to docs directory
+cd docs
 
 # Try different ways to start a server
 if command -v python3 &> /dev/null; then
@@ -62,6 +62,6 @@ else
     echo "  macOS: brew install python3"
     echo "  Linux: apt install python3 or yum install python3"
     echo ""
-    echo "Or use any other static file server to serve the 'web/' directory"
+    echo "Or use any other static file server to serve the 'docs/' directory"
     exit 1
 fi
