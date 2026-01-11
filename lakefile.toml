@@ -16,7 +16,3 @@ root = "Lean2Wasm"
 [[lean_exe]]
 name = "web_main"
 root = "WebMain"
-
-[[lean_exe]]
-name = "lean2wasm_simple"
-root = "Lean2WasmSimple"
