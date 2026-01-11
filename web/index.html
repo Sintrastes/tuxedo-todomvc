@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>TodoMVC - Formally Verified with Lean 4</title>
+    <link rel="stylesheet" href="todomvc.css">
+    <style>
+        #loading {
+            text-align: center;
+            margin-top: 200px;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            color: #777;
+        }
+        #loading h2 {
+            font-size: 24px;
+            font-weight: 300;
+            margin-bottom: 10px;
+        }
+        #loading p {
+            font-size: 14px;
+            color: #999;
+        }
+        #loading.hidden {
+            display: none;
+        }
+        #error {
+            text-align: center;
+            margin-top: 200px;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            color: #d00;
+        }
+        #error.hidden {
+            display: none;
+        }
+        #app.hidden {
+            display: none;
+        }
+        .loader {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #b83f45;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading indicator -->
+    <div id="loading">
+        <h2>Loading Formally Verified TodoMVC</h2>
+        <div class="loader"></div>
+        <p>Initializing WebAssembly module...</p>
+        <p style="font-size: 12px; margin-top: 20px;">
+            This may take a few seconds on first load
+        </p>
+    </div>
+
+    <!-- Error display -->
+    <div id="error" class="hidden">
+        <h2>Failed to Load Application</h2>
+        <p id="error-message"></p>
+        <p style="font-size: 12px; margin-top: 20px;">
+            Please check the browser console for more details
+        </p>
+    </div>
+
+    <!-- Main application container -->
+    <div id="app" class="hidden">
+        <!-- App content will be rendered here by JavaScript -->
+    </div>
+
+    <!-- Footer info -->
+    <footer class="info">
+        <p>Double-click to edit a todo</p>
+        <p>Created with <a href="https://leanprover.github.io/">Lean 4</a></p>
+        <p>Formally verified implementation</p>
+        <p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
+    </footer>
+
+    <!-- Load the application JavaScript -->
+    <script src="app.js"></script>
+</body>
+</html>

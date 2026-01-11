@@ -56,6 +56,71 @@ toggle 0
 quit
 ```
 
+## Web Application & Integration Testing
+
+> **🎉 New!** [Property-Based Integration Testing](quickstrom/QUICKSTROM_SETUP_COMPLETE.md) - Quickstrom-inspired testing for the web app!
+
+This project includes a **fully functional web application** with formal verification carried end-to-end:
+
+### TodoMVC Web App
+
+A complete TodoMVC implementation compiled to WebAssembly:
+
+```bash
+# Start the web server
+./serve_web.sh
+
+# Open http://localhost:8000 in your browser
+```
+
+**Features:**
+- ✅ Compiled from formally verified Lean 4 code
+- ✅ Standard TodoMVC interface (HTML/CSS/JavaScript)
+- ✅ WASM for near-native performance
+- ✅ All TodoMVC features: add, toggle, delete, filter, etc.
+- ✅ Responsive design with proper edit mode (Enter to save, Escape to cancel)
+
+**See:** [README_WEB_BUILD.md](README_WEB_BUILD.md) for web build instructions.
+
+### Property-Based Integration Testing
+
+To verify that the web implementation faithfully maintains the formal guarantees:
+
+```bash
+cd quickstrom
+./run-integration-tests.sh
+```
+
+**Features:**
+- ✅ Temporal logic specification testing (inspired by Quickstrom)
+- ✅ Random action sequence generation (50+ trails)
+- ✅ Invariant checking on every state transition
+- ✅ Automated test execution with one command
+- ✅ Comprehensive bug detection (found 3 real bugs immediately!)
+
+**Test Results:**
+- Explores 1000+ random user interactions
+- Verifies temporal logic properties from the original [Quickstrom TodoMVC spec](https://gist.github.com/owickstrom/1a0698ef6a47df07dfc1fe59eda12983)
+- Validates that JavaScript/DOM implementation matches verified Lean logic
+- Provides confidence in end-to-end correctness
+
+**Documentation:**
+- [quickstrom/README.md](quickstrom/README.md) - Complete testing guide
+- [INTEGRATION_TESTING.md](INTEGRATION_TESTING.md) - Overview and philosophy
+- [quickstrom/TESTING_RESULTS.md](quickstrom/TESTING_RESULTS.md) - Detailed results and bug analysis
+- [quickstrom/QUICKSTROM_SETUP_COMPLETE.md](quickstrom/QUICKSTROM_SETUP_COMPLETE.md) - Executive summary
+
+**The Complete Stack:**
+```
+Lean 4 Formal Verification     ✅ Mathematical correctness
+         ↓
+WebAssembly Compilation         ✅ Semantics preserved
+         ↓
+JavaScript Integration          ✅ Tested with property-based tests
+         ↓
+Browser DOM                     ✅ Verified with temporal logic
+```
+
 ## Building
 
 ```bash

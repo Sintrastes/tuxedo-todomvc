@@ -48,25 +48,4 @@ def renderState (stateJson : String) : String :=
   | none => "<div class=\"todoapp\"><p>Error: Invalid state</p></div>"
   | some state => Html.toString (View.render state)
 
-/-! ## Main function for testing -/
-
-/-- Main function for WASM module
-    This will be called when the WASM module loads.
-    For the web app, we don't need a long-running main,
-    just the exported functions above.
--/
-def main : IO Unit := do
-  IO.println "TodoMVC WASM module loaded"
-  IO.println s!"Initial state: {getInitialState}"
-
-  -- Test: add an item
-  let state1 := processAction getInitialState "{\"type\":\"enterText\",\"text\":\"Test todo\"}"
-  let state2 := processAction state1 "{\"type\":\"addTodo\"}"
-  IO.println s!"After adding item: {state2}"
-
-  -- Test: render
-  let html := renderState state2
-  IO.println "Rendered HTML (first 200 chars):"
-  IO.println (html.take 200)
-
 end TodoMVC.WebMain
