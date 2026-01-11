@@ -6,12 +6,14 @@
   of the UI (HTML-like structure).
 -/
 
+import TuxedoMVC.TodoMVC.Types
 import TuxedoMVC.TodoMVC.Spec
 import TuxedoMVC.TodoMVC.App
 import TuxedoMVC.Coalgebra
 
 namespace TodoMVC.View
 
+open TodoMVC.Types
 open TodoMVC.Spec
 open TodoMVC.App
 

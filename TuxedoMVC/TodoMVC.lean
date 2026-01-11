@@ -3,6 +3,7 @@
 
   This is the main module for the TodoMVC implementation.
   It exports all components:
+  - Types: Core data structures (Filter, TodoItem, TodoState)
   - Spec: LTL specification translated from Quickstrom
   - App: Implementation as a coalgebra/action system
   - View: Abstract HTML representation and rendering
@@ -12,6 +13,7 @@
   - Verification: Runtime verification machinery
 -/
 
+import TuxedoMVC.TodoMVC.Types
 import TuxedoMVC.TodoMVC.Spec
 import TuxedoMVC.TodoMVC.App
 import TuxedoMVC.TodoMVC.View

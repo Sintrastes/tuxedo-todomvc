@@ -8,12 +8,14 @@
   - Render state to HTML
 -/
 
+import TuxedoMVC.TodoMVC.Types
 import TuxedoMVC.TodoMVC.Spec
 import TuxedoMVC.TodoMVC.App
 import TuxedoMVC.TodoMVC.View
 
 namespace TodoMVC.WebMain
 
+open TodoMVC.Types
 open TodoMVC.Spec
 open TodoMVC.App
 open TodoMVC.View

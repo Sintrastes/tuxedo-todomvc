@@ -7,11 +7,13 @@
 
 import TuxedoMVC.LTL
 import TuxedoMVC.Coalgebra
+import TuxedoMVC.TodoMVC.Types
 import TuxedoMVC.TodoMVC.Spec
 import TuxedoMVC.TodoMVC.App
 
 namespace TodoMVC.Driver
 
+open TodoMVC.Types
 open TodoMVC.Spec
 open TodoMVC.App
 

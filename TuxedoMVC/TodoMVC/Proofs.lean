@@ -7,6 +7,7 @@
 
 import TuxedoMVC.LTL
 import TuxedoMVC.Coalgebra
+import TuxedoMVC.TodoMVC.Types
 import TuxedoMVC.TodoMVC.Spec
 import TuxedoMVC.TodoMVC.App
 
@@ -15,6 +16,7 @@ namespace TodoMVC.Proofs
 open LTL
 open LTL.Formula
 open Coalgebra
+open TodoMVC.Types
 open TodoMVC.Spec
 open TodoMVC.App
 

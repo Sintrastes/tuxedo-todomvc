@@ -8,12 +8,14 @@
 
 import TuxedoMVC.LTL
 import TuxedoMVC.Coalgebra
+import TuxedoMVC.TodoMVC.Types
 import TuxedoMVC.TodoMVC.Spec
 
 namespace TodoMVC.App
 
 open LTL
 open Coalgebra
+open TodoMVC.Types
 open TodoMVC.Spec
 
 /-! ## User Actions -/
@@ -39,40 +41,25 @@ instance : ToString Action where
     | .toggleAll => "toggleAll"
     | .clearCompleted => "clearCompleted"
 
-/-! ## JSON Serialization -/
-
-/-- Escape a string for JSON -/
-def escapeJsonString (s : String) : String :=
-  s.replace "\\" "\\\\"
-   |>.replace "\"" "\\\""
-   |>.replace "\n" "\\n"
-   |>.replace "\r" "\\r"
-   |>.replace "\t" "\\t"
-
-/-- Convert Filter to JSON string -/
-def filterToJson (f : Filter) : String :=
-  match f with
-  | .all => "\"all\""
-  | .active => "\"active\""
-  | .completed => "\"completed\""
-
-/-- Parse Filter from string -/
-def filterFromString (s : String) : Option Filter :=
-  match s.trim with
-  | "all" => some .all
-  | "active" => some .active
-  | "completed" => some .completed
-  | _ => none
+/-! ## JSON Serialization for Actions -/
 
 /-- Convert Action to JSON string -/
 def Action.toJson : Action → String
   | .enterText text => s!"\{\"type\":\"enterText\",\"text\":\"{escapeJsonString text}\"}"
   | .addTodo => "{\"type\":\"addTodo\"}"
-  | .setFilter f => s!"\{\"type\":\"setFilter\",\"filter\":{filterToJson f}}"
+  | .setFilter f => s!"\{\"type\":\"setFilter\",\"filter\":{Filter.toJson f}}"
   | .toggleTodo id => s!"\{\"type\":\"toggleTodo\",\"id\":{id}}"
   | .deleteTodo id => s!"\{\"type\":\"deleteTodo\",\"id\":{id}}"
   | .toggleAll => "{\"type\":\"toggleAll\"}"
   | .clearCompleted => "{\"type\":\"clearCompleted\"}"
+
+/-- Parse Filter from string (for action parsing) -/
+private def filterFromString (s : String) : Option Filter :=
+  match s.trim with
+  | "all" => some .all
+  | "active" => some .active
+  | "completed" => some .completed
+  | _ => none
 
 /-- Find substring position in a string -/
 private partial def findSubstring (str : String) (sub : String) (startPos : Nat := 0) : Option Nat :=
@@ -134,21 +121,7 @@ def Action.fromJson (json : String) : Option Action := do
 
 namespace TodoState
 
-/-- Create an empty initial state -/
-def empty : TodoState := {
-  items := []
-  selectedFilter := none
-  pendingText := ""
-  nextId := 0
-}
 
-/-- Create an initial state with the All filter selected -/
-def initial : TodoState := {
-  items := []
-  selectedFilter := some .all
-  pendingText := ""
-  nextId := 0
-}
 
 /-- Set the pending text -/
 def setPendingText (s : TodoState) (text : String) : TodoState :=

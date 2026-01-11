@@ -5,11 +5,13 @@
   traces of TodoMVC executions satisfy the invariants.
 -/
 
+import TuxedoMVC.TodoMVC.Types
 import TuxedoMVC.TodoMVC.Spec
 import TuxedoMVC.TodoMVC.App
 
 namespace TodoMVC.Verification
 
+open TodoMVC.Types
 open TodoMVC.Spec
 open TodoMVC.App
 
