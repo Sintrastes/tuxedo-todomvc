@@ -2,7 +2,7 @@
 # Serve the TodoMVC web application locally
 # Usage: ./serve_web.sh [port]
 
-PORT=${1:-8000}
+PORT=${1:-8080}
 
 echo "╔═══════════════════════════════════════════════════════╗"
 echo "║   TodoMVC - Formally Verified with Lean 4            ║"

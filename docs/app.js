@@ -28,14 +28,38 @@
     try {
       showLoading();
 
-      // Load the WASM module
-      console.log("Loading WebAssembly module...");
-      const createLeanModule = await loadWASMModule();
+      console.log("=== TodoMVC Initialization Starting ===");
+      console.log("Location:", window.location.href);
+      console.log("Base URL:", window.location.origin);
 
-      console.log("Initializing Lean module...");
-      leanModule = await createLeanModule();
+      // Check if WASM module is loaded
+      if (typeof createLeanModule === "undefined") {
+        console.error("createLeanModule is not defined!");
+        console.error(
+          "This usually means main.js failed to load or export the module",
+        );
+        throw new Error(
+          "WASM module (main.js) not loaded. Make sure main.js is loaded before app.js",
+        );
+      }
 
-      console.log("Module loaded successfully");
+      console.log("✓ createLeanModule found");
+      console.log("Initializing Lean WASM module...");
+
+      try {
+        leanModule = await createLeanModule({
+          print: (text) => console.log("[Lean stdout]:", text),
+          printErr: (text) => console.warn("[Lean stderr]:", text),
+        });
+      } catch (moduleError) {
+        console.error("Failed to initialize WASM module:", moduleError);
+        throw new Error(
+          "WASM module initialization failed: " + moduleError.message,
+        );
+      }
+
+      console.log("✓ Module loaded successfully");
+      console.log("Module object:", leanModule);
 
       // Initialize Lean API wrappers
       initializeLeanAPI();
@@ -55,32 +79,31 @@
       // Set up event listeners
       setupEventListeners();
 
-      console.log("Application initialized successfully!");
+      console.log("=== Application Initialized Successfully! ===");
     } catch (error) {
-      console.error("Failed to initialize application:", error);
-      showError("Failed to load application: " + error.message);
-    }
-  }
+      console.error("=== Application Initialization Failed ===");
+      console.error("Error:", error);
+      console.error("Stack:", error.stack);
 
-  /**
-   * Load the WASM module script
-   */
-  function loadWASMModule() {
-    return new Promise((resolve, reject) => {
-      const script = document.createElement("script");
-      script.src = "main.js";
-      script.onload = () => {
-        if (typeof createLeanModule !== "undefined") {
-          resolve(createLeanModule);
-        } else {
-          reject(new Error("createLeanModule not found"));
-        }
-      };
-      script.onerror = () => {
-        reject(new Error("Failed to load WASM module script"));
-      };
-      document.head.appendChild(script);
-    });
+      let errorMsg = "Failed to load application: " + error.message;
+
+      // Add helpful hints for common issues
+      if (error.message.includes("main.js")) {
+        errorMsg +=
+          "\n\nPossible causes:\n" +
+          "- WASM files not deployed to GitHub Pages\n" +
+          "- MIME type issues with .wasm files\n" +
+          "- Files not in the docs/ directory";
+      } else if (error.message.includes("WASM")) {
+        errorMsg +=
+          "\n\nThe WASM module failed to load. This could be due to:\n" +
+          "- Network issues\n" +
+          "- CORS restrictions\n" +
+          "- Missing .nojekyll file in docs/";
+      }
+
+      showError(errorMsg);
+    }
   }
 
   /**
@@ -102,9 +125,30 @@
       return null;
     };
 
+    console.log("Attempting to find exported Lean functions...");
+
+    // Try to find the actual exported functions
+    const getInitialStateFunc = tryGetFunction("getInitialState");
+    const processActionFunc = tryGetFunction("processAction");
+    const renderStateFunc = tryGetFunction("renderState");
+
+    console.log("Function lookup results:");
+    console.log(
+      "- getInitialState:",
+      getInitialStateFunc ? "✓ found" : "✗ not found",
+    );
+    console.log(
+      "- processAction:",
+      processActionFunc ? "✓ found" : "✗ not found",
+    );
+    console.log("- renderState:", renderStateFunc ? "✓ found" : "✗ not found");
+
     // For now, we'll use a simple approach: parse the state maintained by the
     // Lean main() output and manage state in JavaScript, calling Lean logic
     // through a bridge approach
+    console.log(
+      "Using JavaScript fallback implementation (Lean functions not yet integrated)",
+    );
 
     leanAPI.getInitialState = function () {
       // Return initial TodoMVC state
