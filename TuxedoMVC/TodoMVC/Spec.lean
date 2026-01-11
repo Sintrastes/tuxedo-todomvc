@@ -13,8 +13,8 @@
     initial ∧ □(transition₁ ∨ transition₂ ∨ ... ∨ transitionₙ) ∧ □hasFilters
 -/
 
-import LtlFormalVerification.LTL
-import LtlFormalVerification.Coalgebra
+import TuxedoMVC.LTL
+import TuxedoMVC.Coalgebra
 
 namespace TodoMVC.Spec
 

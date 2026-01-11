@@ -12,10 +12,10 @@
   - Verification: Runtime verification machinery
 -/
 
-import LtlFormalVerification.TodoMVC.Spec
-import LtlFormalVerification.TodoMVC.App
-import LtlFormalVerification.TodoMVC.View
-import LtlFormalVerification.TodoMVC.Driver
-import LtlFormalVerification.TodoMVC.WebMain
-import LtlFormalVerification.TodoMVC.Proofs
-import LtlFormalVerification.TodoMVC.Verification
+import TuxedoMVC.TodoMVC.Spec
+import TuxedoMVC.TodoMVC.App
+import TuxedoMVC.TodoMVC.View
+import TuxedoMVC.TodoMVC.Driver
+import TuxedoMVC.TodoMVC.WebMain
+import TuxedoMVC.TodoMVC.Proofs
+import TuxedoMVC.TodoMVC.Verification

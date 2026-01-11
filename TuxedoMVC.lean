@@ -1,11 +1,11 @@
--- This module serves as the root of the `LtlFormalVerification` library.
+-- This module serves as the root of the `TuxedoMVC` library.
 -- Import modules here that should be built as part of the library.
 
 -- Core LTL (Linear Temporal Logic) framework
-import LtlFormalVerification.LTL
+import TuxedoMVC.LTL
 
 -- Coalgebraic modeling framework for stateful applications
-import LtlFormalVerification.Coalgebra
+import TuxedoMVC.Coalgebra
 
 -- TodoMVC application (spec, implementation, proofs, view, driver)
-import LtlFormalVerification.TodoMVC
+import TuxedoMVC.TodoMVC

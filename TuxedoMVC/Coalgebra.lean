@@ -6,7 +6,7 @@
   the "shape" of possible transitions.
 -/
 
-import LtlFormalVerification.LTL
+import TuxedoMVC.LTL
 
 namespace Coalgebra
 

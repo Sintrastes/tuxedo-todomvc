@@ -8,9 +8,9 @@
   - Render state to HTML
 -/
 
-import LtlFormalVerification.TodoMVC.Spec
-import LtlFormalVerification.TodoMVC.App
-import LtlFormalVerification.TodoMVC.View
+import TuxedoMVC.TodoMVC.Spec
+import TuxedoMVC.TodoMVC.App
+import TuxedoMVC.TodoMVC.View
 
 namespace TodoMVC.WebMain
 

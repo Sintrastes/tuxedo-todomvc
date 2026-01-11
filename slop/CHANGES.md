@@ -6,7 +6,7 @@ This reorganization separates runtime verification machinery from formal proofs 
 
 ## Major Changes
 
-### 1. Created `LtlFormalVerification/TodoMVC/Verification.lean` ✨
+### 1. Created `TuxedoMVC/TodoMVC/Verification.lean` ✨
 
 **New module for runtime verification machinery**, extracted from `Driver.lean`:
 
@@ -90,7 +90,7 @@ This reorganization separates runtime verification machinery from formal proofs 
 ### 6. Removed Unused Imports 📦
 
 **From `Driver.lean`:**
-- ❌ Removed `import LtlFormalVerification.TodoMVC.View` (not used)
+- ❌ Removed `import TuxedoMVC.TodoMVC.View` (not used)
 - ❌ Removed `open TodoMVC.View` (not used)
 
 **Rationale**: View layer is not currently used by the driver. It's kept as a separate module for future web frontend work.
@@ -98,8 +98,8 @@ This reorganization separates runtime verification machinery from formal proofs 
 ### 7. Updated Module Structure 📋
 
 **Updated `TodoMVC.lean`:**
-- ✅ Added `import LtlFormalVerification.TodoMVC.Verification`
-- ❌ Removed `import LtlFormalVerification.TodoMVC.View` (optional, kept as separate module)
+- ✅ Added `import TuxedoMVC.TodoMVC.Verification`
+- ❌ Removed `import TuxedoMVC.TodoMVC.View` (optional, kept as separate module)
 
 **Module documentation updated** to reflect new organization.
 
@@ -150,7 +150,7 @@ This reorganization separates runtime verification machinery from formal proofs 
 -- Before: Command-line flag
 -- After: Use Verification module programmatically
 
-import LtlFormalVerification.TodoMVC.Verification
+import TuxedoMVC.TodoMVC.Verification
 open TodoMVC.Verification
 
 def myCommands : List TraceCommand := [
@@ -170,11 +170,11 @@ def main : IO Unit := do
 ### If you were using runtime checking in code:
 ```lean
 -- Before: Import Driver
-import LtlFormalVerification.TodoMVC.Driver
+import TuxedoMVC.TodoMVC.Driver
 open TodoMVC.Driver
 
 -- After: Import Verification
-import LtlFormalVerification.TodoMVC.Verification
+import TuxedoMVC.TodoMVC.Verification
 open TodoMVC.Verification
 
 -- Same function names, different module!

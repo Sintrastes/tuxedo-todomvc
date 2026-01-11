@@ -5,8 +5,8 @@
   traces of TodoMVC executions satisfy the invariants.
 -/
 
-import LtlFormalVerification.TodoMVC.Spec
-import LtlFormalVerification.TodoMVC.App
+import TuxedoMVC.TodoMVC.Spec
+import TuxedoMVC.TodoMVC.App
 
 namespace TodoMVC.Verification
 

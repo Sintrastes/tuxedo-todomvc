@@ -5,10 +5,10 @@
   It exports functions that can be called from JavaScript.
 -/
 
-import LtlFormalVerification.TodoMVC.WebMain
+import TuxedoMVC.TodoMVC.WebMain
 
-/-- Main entry point for WASM module -/
-def main : IO Unit := TodoMVC.WebMain.main
+/-- Dummy main so WASM compilation works. -/
+def main : IO Unit := return
 
 /-- Export functions for JavaScript interop -/
 

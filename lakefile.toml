@@ -3,7 +3,7 @@ version = "0.1.0"
 defaultTargets = ["ltl_formal_verification"]
 
 [[lean_lib]]
-name = "LtlFormalVerification"
+name = "TuxedoMVC"
 
 [[lean_exe]]
 name = "ltl_formal_verification"

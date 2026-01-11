@@ -63,7 +63,7 @@ unsafe def main : IO UInt32 := do
     return 1
 
   -- Add all TodoMVC module C files
-  let todoMVCPath := irPath / "LtlFormalVerification" / "TodoMVC"
+  let todoMVCPath := irPath / "TuxedoMVC" / "TodoMVC"
   let moduleNames := #["Spec", "App", "View", "WebMain"]
 
   for modName in moduleNames do
@@ -72,8 +72,8 @@ unsafe def main : IO UInt32 := do
       cfiles := cfiles.push cfile.toString
       IO.println s!"Found module: {cfile}"
 
-  -- Add core LtlFormalVerification modules
-  let corePath := irPath / "LtlFormalVerification"
+  -- Add core TuxedoMVC modules
+  let corePath := irPath / "TuxedoMVC"
   let coreModules := #["LTL", "Coalgebra", "TodoMVC"]
 
   for modName in coreModules do

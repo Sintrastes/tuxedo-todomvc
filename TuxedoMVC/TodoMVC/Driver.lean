@@ -5,10 +5,10 @@
   the TodoMVC application.
 -/
 
-import LtlFormalVerification.LTL
-import LtlFormalVerification.Coalgebra
-import LtlFormalVerification.TodoMVC.Spec
-import LtlFormalVerification.TodoMVC.App
+import TuxedoMVC.LTL
+import TuxedoMVC.Coalgebra
+import TuxedoMVC.TodoMVC.Spec
+import TuxedoMVC.TodoMVC.App
 
 namespace TodoMVC.Driver
 

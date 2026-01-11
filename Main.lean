@@ -5,7 +5,7 @@
   TodoMVC implementation.
 -/
 
-import LtlFormalVerification
+import TuxedoMVC
 
 def main (args : List String) : IO Unit := do
   match args with

@@ -6,9 +6,9 @@
   prove that all valid executions satisfy the LTL specification.
 -/
 
-import LtlFormalVerification.LTL
-import LtlFormalVerification.Coalgebra
-import LtlFormalVerification.TodoMVC.Spec
+import TuxedoMVC.LTL
+import TuxedoMVC.Coalgebra
+import TuxedoMVC.TodoMVC.Spec
 
 namespace TodoMVC.App
 

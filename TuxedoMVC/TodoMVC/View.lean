@@ -6,9 +6,9 @@
   of the UI (HTML-like structure).
 -/
 
-import LtlFormalVerification.TodoMVC.Spec
-import LtlFormalVerification.TodoMVC.App
-import LtlFormalVerification.Coalgebra
+import TuxedoMVC.TodoMVC.Spec
+import TuxedoMVC.TodoMVC.App
+import TuxedoMVC.Coalgebra
 
 namespace TodoMVC.View
 
