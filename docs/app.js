@@ -45,6 +45,9 @@
 
       console.log("✓ createLeanModule found");
       console.log("Initializing Lean WASM module...");
+      console.log(
+        "Note: WASM file will be loaded from GitHub raw URL (48MB, may take a moment)",
+      );
 
       try {
         leanModule = await createLeanModule({
@@ -97,9 +100,9 @@
       } else if (error.message.includes("WASM")) {
         errorMsg +=
           "\n\nThe WASM module failed to load. This could be due to:\n" +
-          "- Network issues\n" +
+          "- Network issues (48MB file from GitHub raw URL)\n" +
           "- CORS restrictions\n" +
-          "- Missing .nojekyll file in docs/";
+          "- GitHub LFS issues with raw file access";
       }
 
       showError(errorMsg);

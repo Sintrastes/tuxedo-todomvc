@@ -90,7 +90,38 @@
             <p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
         </footer>
 
-        <!-- Load the WASM module first, then the application JavaScript -->
+        <!-- Configure Emscripten to load WASM from raw GitHub URL (LFS-resolved) -->
+        <script>
+            // Set up Module configuration before loading main.js
+            var Module = {
+                // Tell Emscripten where to find the WASM file
+                locateFile: function (path, prefix) {
+                    if (path.endsWith(".wasm")) {
+                        // Load WASM from raw GitHub URL which properly resolves LFS
+                        return "https://github.com/Sintrastes/tuxedo-todomvc/raw/refs/heads/main/docs/main.wasm";
+                    }
+                    return prefix + path;
+                },
+                // Optional: Show download progress
+                setStatus: function (text) {
+                    if (text) {
+                        console.log("[WASM]", text);
+                        var loadingEl = document.getElementById("loading");
+                        if (
+                            loadingEl &&
+                            !loadingEl.classList.contains("hidden")
+                        ) {
+                            var loadingText = loadingEl.querySelector("p");
+                            if (loadingText && text.includes("Downloading")) {
+                                loadingText.textContent = text;
+                            }
+                        }
+                    }
+                },
+            };
+        </script>
+
+        <!-- Load the WASM module, then the application JavaScript -->
         <script src="main.js"></script>
         <script src="app.js"></script>
     </body>
