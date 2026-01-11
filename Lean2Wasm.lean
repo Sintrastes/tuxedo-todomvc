@@ -130,6 +130,7 @@ unsafe def main : IO UInt32 := do
     "-sLINKABLE=0",
     "-sEXPORT_ALL=0",
     "-sALLOW_MEMORY_GROWTH=1",
+    "-sERROR_ON_UNDEFINED_SYMBOLS=0",  -- Allow undefined symbols from Std
     "-fwasm-exceptions",
     "-pthread",
     "-flto",

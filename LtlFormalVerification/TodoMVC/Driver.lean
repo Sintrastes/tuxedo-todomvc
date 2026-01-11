@@ -254,7 +254,7 @@ def renderWithIds (s : TodoState) : String :=
       String.join (s.visibleItems.map (fun item =>
         let mark := if item.completed then "✓" else " "
         let text := item.text.take 18
-        let padding := String.ofList (List.replicate (18 - min 18 text.length) ' ')
+        let padding := List.asString (List.replicate (18 - min 18 text.length) ' ')
         s!"║ {item.id}: [{mark}] {text}{padding}║\n"
       ))
   let divider := "╠═══════════════════════════╣\n"
