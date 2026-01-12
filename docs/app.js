@@ -51,6 +51,12 @@
 
       try {
         leanModule = await createLeanModule({
+          locateFile: (path) => {
+            if (path.endsWith(".wasm")) {
+              return "https://github.com/Sintrastes/tuxedo-todomvc/raw/refs/heads/main/docs/main.wasm?download=";
+            }
+            return path;
+          },
           print: (text) => console.log("[Lean stdout]:", text),
           printErr: (text) => console.warn("[Lean stderr]:", text),
         });
