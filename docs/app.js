@@ -45,53 +45,26 @@
 
       console.log("✓ createLeanModule found");
       console.log("Initializing Lean WASM module...");
-      console.log(
-        "Downloading and decompressing WASM (~7MB gzipped, in chunks)...",
-      );
+      console.log("Downloading and decompressing WASM (~7MB gzipped)...");
 
-      // Fetch and reassemble the gzipped WASM file chunks
-      const chunks = [
-        "main.wasm.gz.partaa",
-        "main.wasm.gz.partab",
-        "main.wasm.gz.partac",
-        "main.wasm.gz.partad",
-      ];
+      // Fetch and decompress the gzipped WASM file
+      const wasmUrl = "main.wasm.gz";
 
-      console.log("Fetching chunks:", chunks.join(", "));
-      const chunkBuffers = [];
-      let totalSize = 0;
+      console.log("Fetching:", wasmUrl);
+      const response = await fetch(wasmUrl);
 
-      for (const chunkUrl of chunks) {
-        console.log(`Fetching: ${chunkUrl}`);
-        const response = await fetch(chunkUrl);
-
-        if (!response.ok) {
-          throw new Error(
-            `Failed to fetch ${chunkUrl}: ${response.status} ${response.statusText}`,
-          );
-        }
-
-        const buffer = await response.arrayBuffer();
-        chunkBuffers.push(buffer);
-        totalSize += buffer.byteLength;
-      }
-
-      // Concatenate all chunks into a single buffer
-      console.log(
-        `Reassembling ${chunks.length} chunks (${totalSize} bytes)...`,
-      );
-      const compressedBuffer = new Uint8Array(totalSize);
-      let offset = 0;
-      for (const buffer of chunkBuffers) {
-        compressedBuffer.set(new Uint8Array(buffer), offset);
-        offset += buffer.byteLength;
+      if (!response.ok) {
+        throw new Error(
+          `Failed to fetch WASM: ${response.status} ${response.statusText}`,
+        );
       }
 
       console.log("Decompressing WASM...");
+      const compressedBuffer = await response.arrayBuffer();
 
       // Decompress using browser's native DecompressionStream API
       const decompressedStream = new Response(
-        new Response(compressedBuffer.buffer).body.pipeThrough(
+        new Response(compressedBuffer).body.pipeThrough(
           new DecompressionStream("gzip"),
         ),
       );
