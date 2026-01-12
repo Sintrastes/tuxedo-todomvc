@@ -46,17 +46,64 @@
       console.log("✓ createLeanModule found");
       console.log("Initializing Lean WASM module...");
       console.log(
-        "Note: WASM file will be loaded from GitHub raw URL (48MB, may take a moment)",
+        "Downloading and decompressing WASM (~7MB gzipped, in chunks)...",
+      );
+
+      // Fetch and reassemble the gzipped WASM file chunks
+      const chunks = [
+        "main.wasm.gz.partaa",
+        "main.wasm.gz.partab",
+        "main.wasm.gz.partac",
+        "main.wasm.gz.partad",
+      ];
+
+      console.log("Fetching chunks:", chunks.join(", "));
+      const chunkBuffers = [];
+      let totalSize = 0;
+
+      for (const chunkUrl of chunks) {
+        console.log(`Fetching: ${chunkUrl}`);
+        const response = await fetch(chunkUrl);
+
+        if (!response.ok) {
+          throw new Error(
+            `Failed to fetch ${chunkUrl}: ${response.status} ${response.statusText}`,
+          );
+        }
+
+        const buffer = await response.arrayBuffer();
+        chunkBuffers.push(buffer);
+        totalSize += buffer.byteLength;
+      }
+
+      // Concatenate all chunks into a single buffer
+      console.log(
+        `Reassembling ${chunks.length} chunks (${totalSize} bytes)...`,
+      );
+      const compressedBuffer = new Uint8Array(totalSize);
+      let offset = 0;
+      for (const buffer of chunkBuffers) {
+        compressedBuffer.set(new Uint8Array(buffer), offset);
+        offset += buffer.byteLength;
+      }
+
+      console.log("Decompressing WASM...");
+
+      // Decompress using browser's native DecompressionStream API
+      const decompressedStream = new Response(
+        new Response(compressedBuffer.buffer).body.pipeThrough(
+          new DecompressionStream("gzip"),
+        ),
+      );
+      const wasmBinary = await decompressedStream.arrayBuffer();
+
+      console.log(
+        `✓ Decompressed ${compressedBuffer.byteLength} bytes -> ${wasmBinary.byteLength} bytes`,
       );
 
       try {
         leanModule = await createLeanModule({
-          locateFile: (path) => {
-            if (path.endsWith(".wasm")) {
-              return "https://github.com/Sintrastes/tuxedo-todomvc/raw/refs/heads/main/docs/main.wasm?download=";
-            }
-            return path;
-          },
+          wasmBinary: wasmBinary, // Provide the decompressed WASM directly
           print: (text) => console.log("[Lean stdout]:", text),
           printErr: (text) => console.warn("[Lean stderr]:", text),
         });
